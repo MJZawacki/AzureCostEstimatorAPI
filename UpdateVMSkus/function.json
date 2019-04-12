@@ -12,6 +12,13 @@
       ]
     },
     {
+      "type": "queue",
+      "direction": "out",
+      "name": "skuqueue",
+      "queueName": "skus",
+      "connection": "MyStorageConnectionAppSetting"
+    },
+    {
       "authLevel": null,
       "type": "http",
       "direction": "out",

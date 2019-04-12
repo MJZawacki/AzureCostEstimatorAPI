@@ -5,8 +5,27 @@
       "authLevel": null,
       "type": "queueTrigger",
       "direction": "in",
-      "name": "myQueueItem",
+      "name": "sku",
+      "queueName": "skus",
+      "connection": "MyStorageConnectionAppSetting",
       "methods": null
+    },
+    {
+      "name": "documents",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "Configurator",
+      "collectionName": "Rates",
+      "sqlQuery": "SELECT * from c where CONTAINS(c.MeterName,{basename})",
+      "connectionStringSetting": "CosmosDBConnection"
+  },
+    {
+      "type": "cosmosDB",
+      "name": "skusOut",
+      "databaseName": "Configurator",
+      "collectionName": "Skus",
+      "connectionStringSetting": "CosmosDBConnection",
+      "direction": "out"
     }
   ],
   "scriptFile": "../dist/SkuWorker/index.js"

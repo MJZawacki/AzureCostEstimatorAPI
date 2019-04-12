@@ -5,8 +5,18 @@
       "authLevel": null,
       "type": "queueTrigger",
       "direction": "in",
-      "name": "myQueueItem",
+      "name": "metercard",
+      "queueName": "meters",
+      "connection": "MyStorageConnectionAppSetting",
       "methods": null
+    },
+    {
+      "type": "cosmosDB",
+      "name": "metersOut",
+      "databaseName": "Configurator",
+      "collectionName": "Rates",
+      "connectionStringSetting": "CosmosDBConnection",
+      "direction": "out"
     }
   ],
   "scriptFile": "../dist/MeterWorker/index.js"

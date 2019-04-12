@@ -19,13 +19,6 @@
       "connection": "MyStorageConnectionAppSetting"
     },
     {
-      "name": "metersblob",
-      "type": "blob",
-      "path": "data/meters.json",
-      "connection": "MyStorageConnectionAppSetting",
-      "direction": "out"
-    },
-    {
       "authLevel": null,
       "type": "http",
       "direction": "out",

@@ -3,7 +3,7 @@ import * as request from "request-promise";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
-    const name = (req.query.name || (req.body && req.body.name));
+
 
 
 
@@ -46,12 +46,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         return JSON.parse(response);
     }).then((ratecard) => {
         let meters = ratecard.Meters;
+
         // send to Queue and then upload to Cosmos
         context.bindings.meterqueue = meters;
-        context.bindings.metersblob = JSON.stringify(meters);
+    
         
         return context.res = {
-            body: ratecard
+            body: "Meters Updated"
         }
     }).catch((error) => {
         if (error) throw new Error(error);
