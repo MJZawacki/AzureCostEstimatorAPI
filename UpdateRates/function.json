@@ -1,0 +1,37 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "queue",
+      "direction": "out",
+      "name": "meterqueue",
+      "queueName": "meters",
+      "connection": "MyStorageConnectionAppSetting"
+    },
+    {
+      "name": "metersblob",
+      "type": "blob",
+      "path": "data/meters.json",
+      "connection": "MyStorageConnectionAppSetting",
+      "direction": "out"
+    },
+    {
+      "authLevel": null,
+      "type": "http",
+      "direction": "out",
+      "name": "res",
+      "methods": null
+    }
+  ],
+  "scriptFile": "../dist/UpdateRates/index.js"
+}

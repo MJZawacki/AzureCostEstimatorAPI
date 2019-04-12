@@ -1,0 +1,30 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "name": "metersblob",
+      "type": "blob",
+      "path": "data/meters.json",
+      "connection": "MyStorageConnectionAppSetting",
+      "direction": "in"
+    },
+    {
+      "authLevel": null,
+      "type": "http",
+      "direction": "out",
+      "name": "res",
+      "methods": null
+    }
+  ],
+  "scriptFile": "../dist/GetCost/index.js"
+}
