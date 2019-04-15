@@ -1,20 +1,28 @@
-az group create -n mzratecard -l westus
+#!/bin/bash
 
- az storage account create -n mzratecard -g mzratecard -l westus --sku Standard_LRS
+# Call this from the function project development directory 
+
+rg='mzconfigurator'
+loc='westus'
+functionappname = 'mzconfigurator'
+cosmosdbname='mzconfigurator'
+az group create -n $rg -l $loc
+
+ az storage account create -n mzratecard -g $rg -l $loc --sku Standard_LRS
 # wait for storage account to be deployed
-connectionstring=$(az storage account show-connection-string  -n mzratecard -g mzratecard -o tsv)
+connectionstring=$(az storage account show-connection-string  -n mzratecard -g $rg -o tsv)
 
  az storage queue create -n meters --connection-string $connectionstring
  az storage queue create -n skus --connection-string $connectionstring
 #  az functionapp list-consumption-locations
-az functionapp create -n mzratecardfunc -g mzratecard -s mzratecard -c westus
+az functionapp create -n $functionappname -g $rg -s mzratecard -c $loc
 func azure functionapp fetch-app-settings mzratecardfunc
 func settings add MyStorageConnectionAppSetting "$connectionstring"
 
-az cosmosdb create -n mzconfigurator -g mzratecard
+az cosmosdb create -n $cosmosdbname -g $rg
 
-az cosmosdb list-connection-strings -g mzratecard -n mzconfigurator | jq -r '.connectionStrings[0]'
+cosmosconstring=$(az cosmosdb list-connection-strings -g $rg -n $cosmosdbname | jq -r '.connectionStrings[0]')
 
-az cosmosdb database create -d Configurator -n mzconfigurator -g mzratecard
- az cosmosdb collection create -d Configurator -c Rates -n mzconfigurator -g mzratecard 
- az cosmosdb collection create -d Configurator -c Skus -n mzconfigurator -g mzratecard 
+az cosmosdb database create -d Configurator -n $cosmosdbname -g $rg
+az cosmosdb collection create -d Configurator -c Rates -n $cosmosdbname -g $rg  # uniquename = /MeterId; partitionkey = /MeterSubCategory
+az cosmosdb collection create -d Configurator -c Skus -n cosmosdbname -g $rg  # uniquename = /name,/location; partitionkey = /location

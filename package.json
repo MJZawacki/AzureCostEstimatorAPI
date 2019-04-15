@@ -13,9 +13,13 @@
   "description": "",
   "devDependencies": {
     "@azure/functions": "^1.0.1-beta1",
+    "@types/config": "0.0.34",
+    "@types/node": "^11.13.4",
     "typescript": "^3.3.3"
   },
   "dependencies": {
+    "@azure/cosmos": "^2.1.5",
+    "config": "^3.1.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   }

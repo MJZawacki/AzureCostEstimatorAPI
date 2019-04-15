@@ -6,18 +6,21 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
+      "route": "cost/{location}/{skuname}",
       "methods": [
         "get",
         "post"
       ]
     },
     {
-      "name": "metersblob",
-      "type": "blob",
-      "path": "data/meters.json",
-      "connection": "MyStorageConnectionAppSetting",
-      "direction": "in"
-    },
+      "name": "documents",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "Configurator",
+      "collectionName": "Skus",
+      "sqlQuery": "SELECT * from c where c.name = {skuname} AND c.location = {location}",
+      "connectionStringSetting": "CosmosDBConnection"
+  },
     {
       "authLevel": null,
       "type": "http",

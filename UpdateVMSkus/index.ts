@@ -1,6 +1,9 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import * as request from "request-promise";
 
+var fs = require('fs');
+var datacenters = JSON.parse(fs.readFileSync('datacenters.json', 'utf8'));
+
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
 
@@ -46,8 +49,9 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         
         for (var vm in vms) {
             // set basename
-            
+            vms[vm].location = vms[vm].locations[0];
             vms[vm].basename = vms[vm].size.replace("_"," ");
+            vms[vm].meterregion = lookupmeterregion(vms[vm].location);
         }
         context.bindings.skuqueue = vms;
     
@@ -62,5 +66,17 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
 
 };
+
+var lookupmeterregion = function(location) {
+
+  
+    let regions : Array<any> = datacenters.filter((x) => { return x.location == location});
+
+    
+    var region = (regions.length >= 1) ? regions[0].MeterRegion : '';
+    if (region == '')
+        console.log('No Region for ' + location);
+    return region;
+}
 
 export default httpTrigger;

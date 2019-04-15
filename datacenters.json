@@ -1,0 +1,163 @@
+[
+    {
+        "location": "eastus",
+        "MeterRegion": "US East"
+    },
+    {
+        "location": "eastus2",
+        "MeterRegion": "US East 2"
+    },
+    {
+        "location": "westus",
+        "MeterRegion": "US West"
+    },
+    {
+        "location": "centralus",
+        "MeterRegion": "US Central"
+    },
+    {
+        "location": "northcentralus",
+        "MeterRegion": "US North Central"
+    },
+    {
+        "location": "southcentralus",
+        "MeterRegion": "US South Central"
+    },
+    {
+        "location": "northeurope",
+        "MeterRegion": "EU North"
+    },
+    {
+        "location": "westeurope",
+        "MeterRegion": "EU West"
+    },
+    {
+        "location": "eastasia",
+        "MeterRegion": "AP East"
+    },
+    {
+        "location": "southeastasia",
+        "MeterRegion": "AP Southeast"
+    },
+    {
+        "location": "japaneast",
+        "MeterRegion": "JA East"
+    },
+    {
+        "location": "japanwest"
+        ,
+        "MeterRegion": "JA West"
+    },
+    {
+        "location": "australiaeast",
+        "MeterRegion": "AU East"
+    },
+    {
+        "location": "australiasoutheast",
+        "MeterRegion": "AU Southeast"
+    },
+    {
+        "location": "brazilsouth",
+        "MeterRegion": "BR South"
+    },
+    {
+        "location": "SouthIndia",
+        "MeterRegion": "IN South"
+    },
+    {
+        "location": "CentralIndia",
+        "MeterRegion": "IN Central"
+    },
+    {
+        "location": "WestIndia",
+        "MeterRegion": "IN West"
+    },
+    {
+        "location": "CanadaCentral",
+        "MeterRegion": "CA Central"
+    },
+    {
+        "location": "CanadaEast",
+        "MeterRegion": "CA East"
+    },
+    {
+        "location": "westus2",
+        "MeterRegion": "US West 2"
+    },
+    {
+        "location": "westcentralus",
+        "MeterRegion": "US West Central"
+    },
+    {
+        "location": "uksouth",
+        "MeterRegion": "UK South"
+    },
+    {
+        "location": "ukwest",
+        "MeterRegion": "UK West"
+    },
+    {
+        "location": "KoreaCentral",
+        "MeterRegion": "KR Central"
+    },
+    {
+        "location": "KoreaSouth",
+        "MeterRegion": "KR South"
+    },
+    {
+        "location": "FranceCentral",
+        "MeterRegion": "FR South"
+    },
+    {
+        "location": "SouthAfricaNorth",
+        "MeterRegion": "US South",
+        "Estimated": true
+    },
+    {
+        "location": "UKNorth",
+        "MeterRegion": "US South",
+        "Estimated": true
+    },
+    {
+        "location": "UKSouth2",
+        "MeterRegion": "US South",
+        "Estimated": true
+    },
+    {
+        "location": "FranceSouth",
+        "MeterRegion": "FR South"
+    },
+    {
+        "location": "AustraliaCentral",
+        "MeterRegion": "AU Central"
+    },
+    {
+        "location": "AustraliaCentral2",
+        "MeterRegion": "AU Central 2"
+    },
+    {
+        "location": "SouthAfricaWest",
+        "MeterRegion": "US South",
+        "Estimated": true
+    },
+    {
+        "location": "UAECentral",
+        "MeterRegion": "US South",
+        "Estimated": true
+    },
+    {
+        "location": "UAENorth",
+        "MeterRegion": "US South",
+        "Estimated": true
+    },
+    {
+        "location": "EastUS2EUAP",
+        "MeterRegion": "US South",
+        "Estimated": true
+    },
+    {
+        "location": "CentralUSEUAP",
+        "MeterRegion": "US South",
+        "Estimated": true
+    }
+]

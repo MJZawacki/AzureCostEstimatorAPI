@@ -11,14 +11,23 @@
       "methods": null
     },
     {
-      "name": "documents",
+      "name": "ratedocs",
       "type": "cosmosDB",
       "direction": "in",
       "databaseName": "Configurator",
       "collectionName": "Rates",
-      "sqlQuery": "SELECT * from c where CONTAINS(c.MeterName,{basename})",
+      "sqlQuery": "SELECT * from c where CONTAINS(c.MeterName,{basename}) AND c.MeterRegion = {meterregion}",
       "connectionStringSetting": "CosmosDBConnection"
   },
+  {
+    "name": "skudocs",
+    "type": "cosmosDB",
+    "direction": "in",
+    "databaseName": "Configurator",
+    "collectionName": "Skus",
+    "sqlQuery": "SELECT * from c where c.name={name} AND c.location={location}",
+    "connectionStringSetting": "CosmosDBConnection"
+},
     {
       "type": "cosmosDB",
       "name": "skusOut",
