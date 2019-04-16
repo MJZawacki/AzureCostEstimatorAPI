@@ -21,6 +21,7 @@ describe('RateTable', () => {
       "priority": "normal",
       "os": "linux",
       "quantity": 3,
+      "type": "vm"
     }
     
     let rate = RateTable.pickRate(sku, input);
@@ -37,6 +38,7 @@ describe('RateTable', () => {
       "priority": "low",
       "os": "linux",
       "quantity": 3,
+      "type": "vm"
     }
     
     let rate = RateTable.pickRate(sku, input);
@@ -53,6 +55,7 @@ describe('RateTable', () => {
       "priority": "normal",
       "os": "linux",
       "quantity": 3,
+      "type": "vm"
     }
     
     let rate = RateTable.pickRate(sku, input);
@@ -69,6 +72,7 @@ describe('RateTable', () => {
       "priority": "low",
       "os": "Windows",
       "quantity": 3,
+      "type": "vm"
     }
     
     let rate = RateTable.pickRate(sku, input);

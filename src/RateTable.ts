@@ -29,8 +29,7 @@ export class RateTable {
         fs.writeFileSync(filepath, 'utf8');
     }
 
-    private filterSkus(skus: Sku[]) {
-  
+    private filterVms(skus: Sku[]) : Sku[] {
 
          // send to Queue and then upload to Cosmos
          let vms : Array<any> = skus.filter((x) => { return x.resourceType == 'virtualMachines'});
@@ -42,9 +41,29 @@ export class RateTable {
              vms[vm].meterregion = this.lookupmeterregion(vms[vm].location);
              vms[vm].ratecards = this.lookupmeters(vms[vm].basename, vms[vm].meterregion );
          }
-         
-         
          return vms;
+    }
+
+    private filterStorage(skus: Sku[]) : Sku[] {
+        let disks : Array<any> = skus.filter((x) => { return x.resourceType == 'disks'});
+        for (var i in disks) {
+
+            disks[i].location = disks[i].locations[0];
+            disks[i].meterregion = this.lookupmeterregion(disks[i].location);
+            disks[i].name = disks[i].name + ' ' + disks[i].size;
+            disks[i].ratecards = this.lookupmeters(disks[i].size, disks[i].meterregion );
+
+        }
+        return disks;
+            
+    }
+
+    private filterSkus(skus: Sku[]) : Sku[] {
+  
+        let vms = this.filterVms(skus);
+        let storage = this.filterStorage(skus);
+        return vms.concat(storage);
+      
          
     }
 
@@ -145,7 +164,7 @@ export class RateTable {
     }
 
     public findSku(skuname: string, location: string): Sku[] {
-        let skus : Array<any> = this._skus.filter((x) => { return ((x.location == location) && (x.name.includes(skuname)))});
+        let skus : Array<any> = this._skus.filter((x) => { return ((x.location == location) && ((x.name.includes(skuname) || (x.size.includes(skuname)))))});
         return skus;
     }
 
@@ -174,23 +193,36 @@ export class RateTable {
         var ratecards = sku.ratecards;
         var output;
         if (ratecards.length >= 1) {
-            if (input.os == 'Windows') {
-                ratecards = ratecards.filter((x) => { return x.MeterSubCategory.includes("Windows") });
-            } else {
-                ratecards = ratecards.filter((x) => { return !x.MeterSubCategory.includes("Windows") });
-            }
-            if (input.priority == 'low') {
-                // check MeterName for 'Low Priority'
-                ratecards = ratecards.filter((x) => { return x.MeterName.includes("Low Priority") });
-            }  else {
-                ratecards = ratecards.filter((x) => { return !x.MeterName.includes("Low Priority") });
-            }
-            if (ratecards.length == 1) {
-                output =  ratecards[0].MeterRates["0"];
-            } else{
-                output = 'Indeterminate RateCards - ';
-                for (var i in ratecards) {
-                    output += ratecards[i].MeterName + '; ';
+            if (input.type == 'vm') {
+                if (input.os == 'Windows') {
+                    ratecards = ratecards.filter((x) => { return x.MeterSubCategory.includes("Windows") });
+                } else {
+                    ratecards = ratecards.filter((x) => { return !x.MeterSubCategory.includes("Windows") });
+                }
+                if (input.priority == 'low') {
+                    // check MeterName for 'Low Priority'
+                    ratecards = ratecards.filter((x) => { return x.MeterName.includes("Low Priority") });
+                }  else {
+                    ratecards = ratecards.filter((x) => { return !x.MeterName.includes("Low Priority") });
+                }
+                if (ratecards.length == 1) {
+                    output =  ratecards[0].MeterRates["0"];
+                } else{
+                    output = 'Indeterminate RateCards - ';
+                    for (var i in ratecards) {
+                        output += ratecards[i].MeterName + '; ';
+                    }
+                }
+
+            } else if (input.type == 'storage') {
+                ratecards = ratecards.filter((x) => { return x.MeterSubCategory.includes("Managed Disks") });
+                if (ratecards.length == 1) {
+                    output =  ratecards[0].MeterRates["0"];
+                } else{
+                    output = 'Indeterminate RateCards - ';
+                    for (var i in ratecards) {
+                        output += ratecards[i].MeterName + '; ';
+                    }
                 }
             }
         } else {
@@ -200,14 +232,14 @@ export class RateTable {
     }
 
     private lookupmeters(basename : string, meterregion : string ) : Meter[] {
-        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterRegion == meterregion) && (x.MeterName.includes(basename) && (x.MeterCategory == 'Virtual Machines')))});
+        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterRegion == meterregion) && (x.MeterName.includes(basename) && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage'))))});
         return meters;
     }
 
     private lookupmeterregion(location) : string {
 
   
-        let regions : Array<any> = this._datacenters.filter((x) => { return x.location == location});
+        let regions : Array<any> = this._datacenters.filter((x) => { return x.location.toLowerCase() == location.toLowerCase() });
     
         
         var region = (regions.length >= 1) ? regions[0].MeterRegion : '';
@@ -228,6 +260,7 @@ export interface Sku {
     basename: string;
     ratecards: Meter[];
     resourceType: string;
+    size: string;
 }
 
 export interface Meter {
@@ -248,4 +281,5 @@ export interface CostInput
     priority: string;
     os: string;
     quantity: number;
+    type: string;
 }
