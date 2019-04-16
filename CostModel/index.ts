@@ -1,17 +1,19 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { RateTable, Sku, Meter } from "../src/RateTable";
-
-let ratecard = new RateTable();
-
-ratecard.refresh();
+import { RateTableFileStore } from "../src/RateTableFileStore";
+import { FunctionUtil } from "../src/FunctionUtil";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
+
+    let store = new RateTableFileStore();
+    let ratecard = await FunctionUtil.getRateTable(store);
+
     var input = req.body;
     let output = [];
     let totalcost : number = 0.0;
     // input can be a single object or an array
-    if (typeof(input) == "object") {
+    if (!Array.isArray(input) && typeof(input == 'object')) {
         input = [input];
     }
     for (var i in input)

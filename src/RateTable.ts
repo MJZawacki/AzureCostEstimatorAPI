@@ -3,9 +3,25 @@ var fs = require('fs');
 
 export class RateTable {
 
-    public setData(skuapiresponse: string, meterApiResponse: string) {
+    constructor(jsonStr?: string) {
+
+        if (jsonStr !== undefined) {
+
+            let jsonObj: any = JSON.parse(jsonStr);
+            for (let prop in jsonObj) {
+                this[prop] = jsonObj[prop];
+            }
+        }
+    }
+
+    public setData(skuapiresponse: Sku[], meterApiResponse: Meter[]) {
+
+        var fs = require('fs');
+        this._datacenters = JSON.parse(fs.readFileSync('datacenters.json', 'utf8'));
+
+        // must update meters first
+        this._meters =   meterApiResponse;
         this._skus = this.filterSkus(skuapiresponse);
-        this._meters =   JSON.parse(meterApiResponse).Meters;
     }
 
     public saveData(filepath: string) {
@@ -13,11 +29,11 @@ export class RateTable {
         fs.writeFileSync(filepath, 'utf8');
     }
 
-    private filterSkus(skuapiresponse: string) {
-        let skus =  JSON.parse(skuapiresponse);
+    private filterSkus(skus: Sku[]) {
+  
 
          // send to Queue and then upload to Cosmos
-         let vms : Array<any> = skus.value.filter((x) => { return x.resourceType == 'virtualMachines'});
+         let vms : Array<any> = skus.filter((x) => { return x.resourceType == 'virtualMachines'});
             
          for (var vm in vms) {
              // set basename
@@ -210,7 +226,8 @@ export interface Sku {
     name: string;
     location: string;
     basename: string;
-    ratecards: Meter[]
+    ratecards: Meter[];
+    resourceType: string;
 }
 
 export interface Meter {
