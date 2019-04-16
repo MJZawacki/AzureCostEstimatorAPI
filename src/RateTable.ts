@@ -1,7 +1,38 @@
 import * as request from "request-promise";
+var fs = require('fs');
 
 export class RateTable {
 
+    public setData(skuapiresponse: string, meterApiResponse: string) {
+        this._skus = this.filterSkus(skuapiresponse);
+        this._meters =   JSON.parse(meterApiResponse).Meters;
+    }
+
+    public saveData(filepath: string) {
+        let output = JSON.stringify(this._skus);
+        fs.writeFileSync(filepath, 'utf8');
+    }
+
+    private filterSkus(skuapiresponse: string) {
+        let skus =  JSON.parse(skuapiresponse);
+
+         // send to Queue and then upload to Cosmos
+         let vms : Array<any> = skus.value.filter((x) => { return x.resourceType == 'virtualMachines'});
+            
+         for (var vm in vms) {
+             // set basename
+             vms[vm].location = vms[vm].locations[0];
+             vms[vm].basename = vms[vm].size.replace("_"," ");
+             vms[vm].meterregion = this.lookupmeterregion(vms[vm].location);
+             vms[vm].ratecards = this.lookupmeters(vms[vm].basename, vms[vm].meterregion );
+         }
+         
+         
+         return vms;
+         
+    }
+
+    
     private updateSkus() : Promise<Sku[]> {
         
             
@@ -38,22 +69,7 @@ export class RateTable {
             return request(options);
 
         }).then((response) => {
-            return JSON.parse(response);
-        }).then((skus) => {
-            // send to Queue and then upload to Cosmos
-            let vms : Array<any> = skus.value.filter((x) => { return x.resourceType == 'virtualMachines'});
-            
-            for (var vm in vms) {
-                // set basename
-                vms[vm].location = vms[vm].locations[0];
-                vms[vm].basename = vms[vm].size.replace("_"," ");
-                vms[vm].meterregion = this.lookupmeterregion(vms[vm].location);
-                vms[vm].ratecards = this.lookupmeters(vms[vm].basename, vms[vm].meterregion );
-            }
-            
-            
-            return vms;
-
+            return this.filterSkus(response);
         }).catch((error) => {
             if (error) throw new Error(error);
         });
@@ -113,7 +129,7 @@ export class RateTable {
     }
 
     public findSku(skuname: string, location: string): Sku[] {
-        let skus : Array<any> = this._skus.filter((x) => { return ((x.location == location) && (x.name == skuname))});
+        let skus : Array<any> = this._skus.filter((x) => { return ((x.location == location) && (x.name.includes(skuname)))});
         return skus;
     }
 
@@ -129,8 +145,46 @@ export class RateTable {
 
     }
 
+    public static getRateNames(sku: Sku) : string[]
+{
+    let output = [];
+    for (var i in sku.ratecards)
+    {
+        output.push(sku.ratecards[i].MeterName)
+    }
+    return output;
+}
+    public static pickRate(sku: Sku, input: CostInput) : string {
+        var ratecards = sku.ratecards;
+        var output;
+        if (ratecards.length >= 1) {
+            if (input.os == 'Windows') {
+                ratecards = ratecards.filter((x) => { return x.MeterSubCategory.includes("Windows") });
+            } else {
+                ratecards = ratecards.filter((x) => { return !x.MeterSubCategory.includes("Windows") });
+            }
+            if (input.priority == 'low') {
+                // check MeterName for 'Low Priority'
+                ratecards = ratecards.filter((x) => { return x.MeterName.includes("Low Priority") });
+            }  else {
+                ratecards = ratecards.filter((x) => { return !x.MeterName.includes("Low Priority") });
+            }
+            if (ratecards.length == 1) {
+                output =  ratecards[0].MeterRates["0"];
+            } else{
+                output = 'Indeterminate RateCards - ';
+                for (var i in ratecards) {
+                    output += ratecards[i].MeterName + '; ';
+                }
+            }
+        } else {
+            output = 'Unknown'
+        }
+        return output;
+    }
+
     private lookupmeters(basename : string, meterregion : string ) : Meter[] {
-        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterRegion == meterregion) && (x.MeterName.includes(basename)))});
+        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterRegion == meterregion) && (x.MeterName.includes(basename) && (x.MeterCategory == 'Virtual Machines')))});
         return meters;
     }
 
@@ -151,17 +205,30 @@ export class RateTable {
     private _meters: Meter[];
 }
 
-interface Sku {
+export interface Sku {
     id: string;
     name: string;
-    ratecards: string[];
-    location;
-    basename;
+    location: string;
+    basename: string;
+    ratecards: Meter[]
 }
 
-interface Meter {
+export interface Meter {
     id: string;
     MeterId: string;
     MeterRegion: string;
     MeterName: string;
+    MeterCategory: string;
+    MeterSubCategory: string;
+    MeterRates: {};
+}
+
+export interface CostInput
+{
+    name: string;
+    location: string;
+    hours: number;
+    priority: string;
+    os: string;
+    quantity: number;
 }

@@ -1,0 +1,1082 @@
+[
+  {
+    "name": "Classic",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Aligned",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "StandardSSD_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Premium_LRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_ZRS",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_B1ls",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_B1ms",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_B1s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_B2ms",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_B2s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_B4ms",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_B8ms",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS1_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS2_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS3_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS4_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS5_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS11-1_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS11_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS12-1_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS12-2_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS12_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS13-2_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS13-4_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS13_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS14-4_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS14-8_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS14_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DS15_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F1s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F2s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F4s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F8s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F16s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D2s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D4s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D8s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D16s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D32s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D1_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D2_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D3_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D4_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D5_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D11_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D12_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D13_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D14_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D15_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F1",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F4",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F8",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F16",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_A1_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_A2m_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_A2_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_A4m_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_A4_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_A8m_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_A8_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D2_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D4_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D8_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D16_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D32_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D64_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_D64s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E2_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E4_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E8_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E16_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E20_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E32_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E64i_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E64_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E2s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E4-2s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E4s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E8-2s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E8-4s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E8s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E16-4s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E16-8s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E16s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E20s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E32-8s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E32-16s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E32s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E64-16s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E64-32s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E64is_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_E64s_v3",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F2s_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F4s_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F8s_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F16s_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F32s_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F64s_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_F72s_v2",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DC2s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  },
+  {
+    "name": "Standard_DC4s",
+    "location": "eastus",
+    "hours": 730,
+    "priority": "normal",
+    "os": "linux",
+    "quantity": 3
+  }
+]

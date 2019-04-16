@@ -1,6 +1,5 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import * as request from "request-promise";
-
 var fs = require('fs');
 var datacenters = JSON.parse(fs.readFileSync('datacenters.json', 'utf8'));
 

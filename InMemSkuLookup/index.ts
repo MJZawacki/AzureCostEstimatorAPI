@@ -1,7 +1,8 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
-import { RateTable } from "../shared/RateTable";
+import { RateTable } from "../src/RateTable";
 
 let ratecard = new RateTable();
+
 ratecard.refresh();
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
