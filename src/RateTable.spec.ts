@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import 'mocha';
 import { RateTable, Sku, Meter, CostInput } from './RateTable';
+import { RateTableFileStore } from './RateTableFileStore';
+import { FunctionUtil } from './FunctionUtil';
 
 describe('RateTable', () => {
 
@@ -78,6 +80,51 @@ describe('RateTable', () => {
     let rate = RateTable.pickRate(sku, input);
     expect(rate).to.equal(0.24);
   });
+
+  it('CalculateCosts should return correct costs for Standard_A8_v2 vm', async () => {
+
+    let store = new RateTableFileStore();
+    let ratecard = await FunctionUtil.getRateTable(store);
+    
+    let sku : Sku = loadtestsku();
+    let input : CostInput[] =  [{
+      "name": "Standard_A8_v2",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "low",
+      "os": "Windows",
+      "quantity": 3,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+   
+    expect(output.monthlytotal).to.equal("525.60");
+    expect(output.annualtotal).to.equal("6307.20");
+    expect(output.costs.length).to.equal(input.length);
+  });
+
+  it('CalculateCosts should return correct costs for P60 sku', async () => {
+
+    let store = new RateTableFileStore();
+    let ratecard = await FunctionUtil.getRateTable(store);
+    
+    let sku : Sku = loadtestsku();
+    let input : CostInput[] =  [{
+      "name": "P60",
+      "location": "eastus",
+      "hours": 730,
+      "priority": null,
+      "os": null,
+      "quantity": 3,
+      "type": "storage"
+    }];
+    let output = ratecard.CalculateCosts(input);
+   
+    expect(output.monthlytotal).to.equal("1419.12");
+    expect(output.annualtotal).to.equal("17029.44");
+    expect(output.costs.length).to.equal(input.length);
+  });
+
 });
 
 var loadtestsku = function() {

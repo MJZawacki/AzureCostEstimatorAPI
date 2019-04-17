@@ -1,5 +1,7 @@
 import * as request from "request-promise";
 var fs = require('fs');
+import { VMSku } from "../src/VMSku";
+import { StorageSku } from "../src/StorageSku";
 
 export class RateTable {
 
@@ -224,11 +226,55 @@ export class RateTable {
                         output += ratecards[i].MeterName + '; ';
                     }
                 }
+            } else {
+                output = 'No type provided';
             }
         } else {
             output = 'Unknown'
         }
         return output;
+    }
+
+    public CalculateCosts(inputarray: CostInput[]): CostResults {
+
+        let totalcost = 0;
+        let output: CostOutput[] = [];
+        for (var i in inputarray)
+        {
+            var outputsku: CostOutput = <CostOutput> inputarray[i];
+            var sku = this.findSku(inputarray[i].name, inputarray[i].location );
+            if (sku.length >= 1) {
+                // determine correct cards
+                if (sku.length > 1) {
+                    outputsku.reason = 'Multiple skus found';
+                }
+                let rate = RateTable.pickRate(sku[0], inputarray[i]);
+                if (!Number.isNaN(costval)) {
+                    var costval = Number.parseFloat(rate);
+                    switch(inputarray[i].type) {
+                        case "vm":
+                            outputsku.monthlycost = VMSku.CalculateCost(costval, inputarray[i].quantity)
+                        break;
+                        case "storage":
+                            outputsku.monthlycost = StorageSku.CalculateCost(costval, inputarray[i].quantity);
+                        break;
+                        default:
+                            outputsku.monthlycost = NaN;
+                    } 
+                    outputsku.annualcost = outputsku.monthlycost * 12;
+                    totalcost += outputsku.monthlycost;
+                    outputsku.otherrates = RateTable.getRateNames(sku[0]);
+                } else {
+                    outputsku.reason = rate; // Rate is an error message
+                }
+            } else {
+                outputsku.reason = 'No Skus found';
+            }
+            output.push(outputsku);
+        }
+    
+        return { costs: output, monthlytotal: totalcost.toFixed(2), annualtotal: (totalcost * 12).toFixed(2) }
+
     }
 
     private lookupmeters(basename : string, meterregion : string ) : Meter[] {
@@ -282,4 +328,26 @@ export interface CostInput
     os: string;
     quantity: number;
     type: string;
+}
+
+export interface CostOutput
+{
+    name: string;
+    location: string;
+    hours: number;
+    priority: string;
+    os: string;
+    quantity: number;
+    monthlycost: number;
+    annualcost: number;
+    otherrates: string[];
+    type: string;
+    reason: string;
+}
+
+export interface CostResults
+{
+    costs: CostOutput[];
+    monthlytotal: string;
+    annualtotal: string;
 }
