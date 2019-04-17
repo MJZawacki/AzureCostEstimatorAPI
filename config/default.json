@@ -1,0 +1,7 @@
+{
+    "endpoint": "<cosmos endpoint>",
+    "primaryKey": "<cosmos key>",
+    "databaseId": "Configurator",
+    "ratecontainer": "Rates",
+    "filecache": "D:\\HOME\\resource.json"
+}
