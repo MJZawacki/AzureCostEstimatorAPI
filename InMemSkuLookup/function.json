@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "costinmem/{location}/{skuname}",
+      "route": "cost/{location}/{skuname?}",
       "methods": [
         "get",
         "post"

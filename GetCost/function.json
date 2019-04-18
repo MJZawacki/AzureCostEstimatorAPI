@@ -6,7 +6,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "cost/{location}/{skuname}",
+      "route": "costfromcosmos/{location}/{skuname}",
       "methods": [
         "get",
         "post"

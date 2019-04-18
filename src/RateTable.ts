@@ -165,8 +165,15 @@ export class RateTable {
      
     }
 
-    public findSku(skuname: string, location: string): Sku[] {
-        let skus : Array<any> = this._skus.filter((x) => { return ((x.location == location) && ((x.name.includes(skuname) || (x.size.includes(skuname)))))});
+    public findSku(location: string, skuname?: string): Sku[] {
+        var skus: Array<any>;
+
+        if (skuname === undefined) {
+            skus = this._skus.filter((x) => { return ((x.location == location) )});
+
+        } else {
+            skus = this._skus.filter((x) => { return ((x.location == location) && ((x.name.includes(skuname) || (x.size.includes(skuname)))))});
+        }
         return skus;
     }
 
@@ -242,7 +249,7 @@ export class RateTable {
         for (var i in inputarray)
         {
             var outputsku: CostOutput = <CostOutput> inputarray[i];
-            var sku = this.findSku(inputarray[i].name, inputarray[i].location );
+            var sku = this.findSku(inputarray[i].location , inputarray[i].name);
             if (sku.length >= 1) {
                 // determine correct cards
                 if (sku.length > 1) {

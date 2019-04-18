@@ -13,8 +13,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     let skuname = context.bindingData.skuname;
     let location = context.bindingData.location;
-
-    let sku = ratecard.findSku(skuname, location);
+    var sku;
+    if (location !== undefined) {
+        sku = ratecard.findSku(location, skuname);
+    }
    
     context.res = {
         // status: 200, /* Defaults to 200 */
