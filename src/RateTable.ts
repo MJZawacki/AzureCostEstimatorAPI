@@ -304,7 +304,11 @@ export class RateTable {
 
     private lookupmeters(basename : string, meterregion : string ) : Meter[] {
         var output = [];
-        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterStatus == 'Active') && (x.MeterRegion == meterregion) && (x.MeterName.includes(basename) && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage'))))});
+        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterStatus == 'Active') 
+                                                && (x.MeterRegion == meterregion) 
+                                                && (!x.MeterName.includes('Expired'))
+                                                && (x.MeterName.includes(basename) 
+                                                && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage'))))});
         // for each name+subcategory, take the first one
         var metergroups = this.groupby(meters);
         Object.keys(metergroups).forEach(function (key) {

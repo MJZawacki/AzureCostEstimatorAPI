@@ -9,7 +9,7 @@ describe('RateTable', () => {
 
   let testskus = JSON.parse(fs.readFileSync('testinputallratecards.json', 'utf8'));
   var tests = [];
-  for (var i = 12; i < 20; i++ ) {
+  for (var i = 0; i < 20; i++ ) {
   //for (var i in testskus) {
 
     var type;
@@ -59,6 +59,7 @@ describe('RateTable', () => {
               }];
               let output = ratecard.CalculateCosts(input);
               expect(output.costs.length).to.equal(input.length);
+              expect(output.costs[0].monthlycost).to.be.a('number', 'cost returned ' + output.costs[0].monthlycost );
               expect(output.costs[0].monthlycost.toFixed(2)).to.equal((test.expected * 730).toFixed(2), 'monthly total is incorrect - ' + output.costs[0].reason );
               expect(output.costs[0].annualcost.toFixed(2)).to.equal((test.expected * 730 * 12).toFixed(2), 'annual total is incorrect' );
             });
