@@ -19,7 +19,7 @@
           "--timeout",
           "999999",
           "--colors",
-          "${workspaceFolder}\\src\\**\\*.spec.ts",
+          "${workspaceFolder}\\src\\**\\*.fullsku.spec.ts",
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",

@@ -1,6 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import * as request from "request-promise";
-var fs = require('fs');
+import * as fs from 'fs';
 var datacenters = JSON.parse(fs.readFileSync('datacenters.json', 'utf8'));
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {

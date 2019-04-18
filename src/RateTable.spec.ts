@@ -3,6 +3,7 @@ import 'mocha';
 import { RateTable, Sku, Meter, CostInput } from './RateTable';
 import { RateTableFileStore } from './RateTableFileStore';
 import { FunctionUtil } from './FunctionUtil';
+import * as fs from 'fs';
 
 describe('RateTable', () => {
 
@@ -86,7 +87,7 @@ describe('RateTable', () => {
     let store = new RateTableFileStore();
     let ratecard = await FunctionUtil.getRateTable(store);
     
-    let sku : Sku = loadtestsku();
+
     let input : CostInput[] =  [{
       "name": "Standard_A8_v2",
       "location": "eastus",
@@ -108,7 +109,7 @@ describe('RateTable', () => {
     let store = new RateTableFileStore();
     let ratecard = await FunctionUtil.getRateTable(store);
     
-    let sku : Sku = loadtestsku();
+ 
     let input : CostInput[] =  [{
       "name": "P60",
       "location": "eastus",
@@ -125,6 +126,7 @@ describe('RateTable', () => {
     expect(output.costs.length).to.equal(input.length);
   });
 
+  
 });
 
 var loadtestsku = function() {

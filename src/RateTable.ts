@@ -1,5 +1,5 @@
 import * as request from "request-promise";
-var fs = require('fs');
+import * as fs from 'fs';
 import { VMSku } from "../src/VMSku";
 import { StorageSku } from "../src/StorageSku";
 
@@ -18,7 +18,7 @@ export class RateTable {
 
     public setData(skuapiresponse: Sku[], meterApiResponse: Meter[]) {
 
-        var fs = require('fs');
+   
         this._datacenters = JSON.parse(fs.readFileSync('datacenters.json', 'utf8'));
 
         // must update meters first
@@ -70,100 +70,100 @@ export class RateTable {
     }
 
     
-    private updateSkus() : Promise<Sku[]> {
+    // private updateSkus() : Promise<Sku[]> {
         
             
-        var options = { method: 'GET',
-        url: 'https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/token',
-        headers: 
-        { 
-            'Content-Type': 'application/x-www-form-urlencoded' },
-        form: 
-        { grant_type: 'client_credentials',
-            client_id: 'ee682fb4-e490-4553-b28f-a82ee49c0d81',
-            resource: 'https://management.azure.com',
-            client_secret: ')]]d$|=1g}:[tZ@.$0#_-&^[+:.}}+&r]8-' } 
-        };
+    //     var options = { method: 'GET',
+    //     url: 'https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/token',
+    //     headers: 
+    //     { 
+    //         'Content-Type': 'application/x-www-form-urlencoded' },
+    //     form: 
+    //     { grant_type: 'client_credentials',
+    //         client_id: 'ee682fb4-e490-4553-b28f-a82ee49c0d81',
+    //         resource: 'https://management.azure.com',
+    //         client_secret: ')]]d$|=1g}:[tZ@.$0#_-&^[+:.}}+&r]8-' } 
+    //     };
 
-        return request(options).then( (response) => {
-            return JSON.parse(response).access_token;
-            console.log(response.body);
-        }).then((accesstoken) => {
+    //     return request(options).then( (response) => {
+    //         return JSON.parse(response).access_token;
+    //         console.log(response.body);
+    //     }).then((accesstoken) => {
         
-            var options = { method: 'GET',
-            url: 'https://management.azure.com/subscriptions/8e95e0bb-d7cc-4454-9443-75ca862d34c1/providers/Microsoft.Compute/skus',
-            qs: 
-            {   
-                'api-version': '2017-09-01',
-            },
-            headers: 
-            { 
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + accesstoken 
-                } 
-            };
+    //         var options = { method: 'GET',
+    //         url: 'https://management.azure.com/subscriptions/8e95e0bb-d7cc-4454-9443-75ca862d34c1/providers/Microsoft.Compute/skus',
+    //         qs: 
+    //         {   
+    //             'api-version': '2017-09-01',
+    //         },
+    //         headers: 
+    //         { 
+    //             'Content-Type': 'application/json',
+    //             Authorization: 'Bearer ' + accesstoken 
+    //             } 
+    //         };
 
-            return request(options);
+    //         return request(options);
 
-        }).then((response) => {
-            return this.filterSkus(response);
-        }).catch((error) => {
-            if (error) throw new Error(error);
-        });
+    //     }).then((response) => {
+    //         return this.filterSkus(response);
+    //     }).catch((error) => {
+    //         if (error) throw new Error(error);
+    //     });
 
-    }
+    // }
 
-    private updateMeters(): Promise<Meter[]> {
+    // private updateMeters(): Promise<Meter[]> {
 
         
-        var options = { method: 'GET',
-        url: 'https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/token',
-        headers: 
-        { 
-            'Content-Type': 'application/x-www-form-urlencoded' },
-        form: 
-        { grant_type: 'client_credentials',
-            client_id: 'ee682fb4-e490-4553-b28f-a82ee49c0d81',
-            resource: 'https://management.azure.com',
-            client_secret: ')]]d$|=1g}:[tZ@.$0#_-&^[+:.}}+&r]8-' } 
-        };
+    //     var options = { method: 'GET',
+    //     url: 'https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/token',
+    //     headers: 
+    //     { 
+    //         'Content-Type': 'application/x-www-form-urlencoded' },
+    //     form: 
+    //     { grant_type: 'client_credentials',
+    //         client_id: 'ee682fb4-e490-4553-b28f-a82ee49c0d81',
+    //         resource: 'https://management.azure.com',
+    //         client_secret: ')]]d$|=1g}:[tZ@.$0#_-&^[+:.}}+&r]8-' } 
+    //     };
 
-        return request(options).then( (response) => {
-            return JSON.parse(response).access_token;
-            console.log(response.body);
-        }).then((accesstoken) => {
-                    //$filter=OfferDurableId eq 'MS-AZR-0121p' and Currency eq 'USD' and Locale eq 'en-US' and RegionInfo eq 'US'");
+    //     return request(options).then( (response) => {
+    //         return JSON.parse(response).access_token;
+    //         console.log(response.body);
+    //     }).then((accesstoken) => {
+    //                 //$filter=OfferDurableId eq 'MS-AZR-0121p' and Currency eq 'USD' and Locale eq 'en-US' and RegionInfo eq 'US'");
 
-            var options = { method: 'GET',
-            url: 'https://management.azure.com/subscriptions/8e95e0bb-d7cc-4454-9443-75ca862d34c1/providers/Microsoft.Commerce/RateCard',
-            qs: 
-            { 'api-version': '2016-08-31-preview',
-                //'$filter': 'OfferDurableId%20eq%20%27MS-AZR-0121p%27%20and%20Currency%20eq%20%27USD%27%20and%20Locale%20eq%20%27en-US%27%20and%20RegionInfo%20eq%20%27US%27',
-                '$filter': "OfferDurableId eq 'MS-AZR-0121p' and Currency eq 'USD' and Locale eq 'en-US' and RegionInfo eq 'US'"
+    //         var options = { method: 'GET',
+    //         url: 'https://management.azure.com/subscriptions/8e95e0bb-d7cc-4454-9443-75ca862d34c1/providers/Microsoft.Commerce/RateCard',
+    //         qs: 
+    //         { 'api-version': '2016-08-31-preview',
+    //             //'$filter': 'OfferDurableId%20eq%20%27MS-AZR-0121p%27%20and%20Currency%20eq%20%27USD%27%20and%20Locale%20eq%20%27en-US%27%20and%20RegionInfo%20eq%20%27US%27',
+    //             '$filter': "OfferDurableId eq 'MS-AZR-0121p' and Currency eq 'USD' and Locale eq 'en-US' and RegionInfo eq 'US'"
             
-            },
-            headers: 
-            { 
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + accesstoken 
-                } 
-            };
+    //         },
+    //         headers: 
+    //         { 
+    //             'Content-Type': 'application/json',
+    //             Authorization: 'Bearer ' + accesstoken 
+    //             } 
+    //         };
 
-            return request(options);
+    //         return request(options);
 
-        }).then((response) => {
-            return JSON.parse(response);
-        }).then((ratecard) => {
-            let meters = ratecard.Meters;
+    //     }).then((response) => {
+    //         return JSON.parse(response);
+    //     }).then((ratecard) => {
+    //         let meters = ratecard.Meters;
 
-            return meters;
-        }).catch((error) => {
-            if (error) throw new Error(error);
-        });
+    //         return meters;
+    //     }).catch((error) => {
+    //         if (error) throw new Error(error);
+    //     });
 
 
      
-    }
+    // }
 
     public findSku(location: string, skuname?: string): Sku[] {
         var skus: Array<any>;
@@ -177,17 +177,17 @@ export class RateTable {
         return skus;
     }
 
-    public async refresh() {
+    // public async refresh() {
 
-        var fs = require('fs');
-        this._datacenters = JSON.parse(fs.readFileSync('datacenters.json', 'utf8'));
+ 
+    //     this._datacenters = JSON.parse(fs.readFileSync('datacenters.json', 'utf8'));
 
         
-        this._meters = await this.updateMeters();
-        this._skus = await this.updateSkus();
+    //     this._meters = await this.updateMeters();
+    //     this._skus = await this.updateSkus();
 
 
-    }
+    // }
 
     public static getRateNames(sku: Sku) : string[]
 {
@@ -253,26 +253,36 @@ export class RateTable {
             if (sku.length >= 1) {
                 // determine correct cards
                 if (sku.length > 1) {
-                    outputsku.reason = 'Multiple skus found';
+                  
+                    // throw out Promo
+                    sku = sku.filter((x) => { return (!x.name.includes('Promo')) })
                 }
-                let rate = RateTable.pickRate(sku[0], inputarray[i]);
-                if (!Number.isNaN(costval)) {
-                    var costval = Number.parseFloat(rate);
-                    switch(inputarray[i].type) {
-                        case "vm":
-                            outputsku.monthlycost = VMSku.CalculateCost(costval, inputarray[i].quantity)
-                        break;
-                        case "storage":
-                            outputsku.monthlycost = StorageSku.CalculateCost(costval, inputarray[i].quantity);
-                        break;
-                        default:
-                            outputsku.monthlycost = NaN;
-                    } 
-                    outputsku.annualcost = outputsku.monthlycost * 12;
-                    totalcost += outputsku.monthlycost;
-                    outputsku.otherrates = RateTable.getRateNames(sku[0]);
+
+                if (sku.length > 1) {
+                    outputsku.reason = 'Multiple skus found';
+                 
                 } else {
-                    outputsku.reason = rate; // Rate is an error message
+
+                    let rate = RateTable.pickRate(sku[0], inputarray[i]);
+                    if (!Number.isNaN(costval)) {
+                        var costval = Number.parseFloat(rate);
+                        switch(inputarray[i].type) {
+                            case "vm":
+                                outputsku.monthlycost = VMSku.CalculateCost(costval, inputarray[i].quantity)
+                            break;
+                            case "storage":
+                                outputsku.monthlycost = StorageSku.CalculateCost(costval, inputarray[i].quantity);
+                            break;
+                            default:
+                                outputsku.monthlycost = NaN;
+                        } 
+                        outputsku.annualcost = outputsku.monthlycost * 12;
+                        totalcost += outputsku.monthlycost;
+                        outputsku.otherrates = RateTable.getRateNames(sku[0]);
+                    
+                    } else {
+                        outputsku.reason = rate; // Rate is an error message
+                    }
                 }
             } else {
                 outputsku.reason = 'No Skus found';
@@ -284,9 +294,50 @@ export class RateTable {
 
     }
 
+    private groupby(xs) {
+        return xs.reduce(function(rv, x) {
+            var key = x.MeterName + '-' + x.MeterSubCategory;
+          (rv[key] = rv[key] || []).push(x);
+          return rv;
+        }, {});
+      };
+
     private lookupmeters(basename : string, meterregion : string ) : Meter[] {
-        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterRegion == meterregion) && (x.MeterName.includes(basename) && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage'))))});
-        return meters;
+        var output = [];
+        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterStatus == 'Active') && (x.MeterRegion == meterregion) && (x.MeterName.includes(basename) && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage'))))});
+        // for each name+subcategory, take the first one
+        var metergroups = this.groupby(meters);
+        Object.keys(metergroups).forEach(function (key) {
+            var thisgroup = metergroups[key];
+             // do something with key or value
+             if (thisgroup.length > 1) {
+                // sort by EffectiveDate and take first
+             
+                thisgroup.sort(function(a, b) {
+                    a = new Date(a.dateModified);
+                    b = new Date(b.dateModified);
+                    return a>b ? -1 : a<b ? 1 : 0;
+                });
+                output.push(thisgroup[0])
+            } else {
+                output.push(thisgroup[0]);
+            }
+          });
+        // for (var i in metergroups) {
+        //     if (metergroups[i].length > 1) {
+        //         // sort by EffectiveDate and take first
+             
+        //         metergroups[i].sort(function(a, b) {
+        //             a = new Date(a.dateModified);
+        //             b = new Date(b.dateModified);
+        //             return a>b ? -1 : a<b ? 1 : 0;
+        //         });
+        //         output.push(metergroups[i][0])
+        //     } else {
+        //         output.push(metergroups[i][0]);
+        //     }
+        // }
+        return output;
     }
 
     private lookupmeterregion(location) : string {
@@ -317,6 +368,7 @@ export interface Sku {
 }
 
 export interface Meter {
+    MeterStatus: string;
     id: string;
     MeterId: string;
     MeterRegion: string;
