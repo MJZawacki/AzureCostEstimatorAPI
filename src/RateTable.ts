@@ -199,11 +199,22 @@ export class RateTable {
 
     private lookupmeters(basename : string, meterregion : string ) : Meter[] {
         var output = [];
-        let meters : Array<any> = this._meters.filter((x) => { return ((x.MeterStatus == 'Active') 
-                                                && (x.MeterRegion == meterregion) 
-                                                && (!x.MeterName.includes('Expired'))
-                                                && (x.MeterName.includes(basename) 
-                                                && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage'))))});
+        var meters: Array<any> ;
+        // need to watch out for v2 if it isn't in the basename
+        if (!basename.includes('v2')) {
+            meters = this._meters.filter((x) => { return ((x.MeterStatus == 'Active') 
+            && (x.MeterRegion == meterregion) 
+            && (!x.MeterName.includes('Expired'))
+            && ((x.MeterName.includes(basename)) && (!x.MeterName.includes('v2')))
+            && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage')))});
+        } else {
+
+            meters  = this._meters.filter((x) => { return ((x.MeterStatus == 'Active') 
+                                                    && (x.MeterRegion == meterregion) 
+                                                    && (!x.MeterName.includes('Expired'))
+                                                    && (x.MeterName.includes(basename)) 
+                                                    && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage')))});
+        }
         // for each name+subcategory, take the first one
         var metergroups = this.groupby(meters);
         Object.keys(metergroups).forEach(function (key) {
