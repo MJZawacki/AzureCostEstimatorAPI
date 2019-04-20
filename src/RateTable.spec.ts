@@ -1,11 +1,24 @@
-import { expect } from 'chai';
+import { expect, assert } from 'chai';
 import 'mocha';
+
 import { RateTable, Sku, Meter, CostInput } from './RateTable';
 import { RateTableFileStore } from './RateTableFileStore';
 import { FunctionUtil } from './FunctionUtil';
 import * as fs from 'fs';
+import { doesNotReject } from 'assert';
 
 describe('RateTable', () => {
+
+  before(async function() {
+    // create local cache of ratecard if it doesn't exist
+    this.timeout(50000);
+    //setTimeout(done, 50000);
+    let store = new RateTableFileStore();
+    let ratecard = await FunctionUtil.getRateTable(store);
+    expect(ratecard).to.not.be.null;
+    
+  });
+
 
   it('getRateNames should return all ratecards', () => {
 
