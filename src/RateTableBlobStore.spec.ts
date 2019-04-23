@@ -14,7 +14,6 @@ describe('RateTableBlobStore', () => {
 
     let testobj = {
         "_skus": [{}],
-        "_meters": [{}],
         "_datacenters": [{}]
     };
     let url = await store.saveRateTable('test', new RateTable(testobj));
@@ -30,7 +29,6 @@ describe('RateTableBlobStore', () => {
     
     expect(rates).to.be.a('object');
     expect(rates).to.have.property('_skus');
-    expect(rates).to.have.property('_meters');
     expect(rates).to.have.property('_datacenters');
   
   });

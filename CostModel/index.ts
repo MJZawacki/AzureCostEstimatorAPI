@@ -32,7 +32,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         inputarray.push(input);
     }
 
-    let output = ratecard.CalculateCosts(inputarray);
+    let output = ratecard[offercard].CalculateCosts(inputarray);
    
     context.res = {
         body: output

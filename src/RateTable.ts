@@ -26,8 +26,8 @@ export class RateTable {
         this._datacenters = JSON.parse(fs.readFileSync('datacenters.json', 'utf8'));
 
         // must update meters first
-        this._meters =   meterApiResponse;
-        this._skus = this.filterSkus(skuapiresponse);
+     
+        this._skus = this.filterSkus(skuapiresponse, meterApiResponse);;
     }
 
     public saveData(filepath: string) {
@@ -35,39 +35,60 @@ export class RateTable {
         fs.writeFileSync(filepath, 'utf8');
     }
 
-    private filterVms(skus: Sku[]) : Sku[] {
+    private filterVms(skus: Sku[], meters: Meter[]) : Sku[] {
 
-         // send to Queue and then upload to Cosmos
-         let vms : Array<any> = skus.filter((x) => { return x.resourceType == 'virtualMachines'});
-            
-         for (var vm in vms) {
-             // set basename
-             vms[vm].location = vms[vm].locations[0];
-             vms[vm].basename = vms[vm].size.replace("_"," ");
-             vms[vm].meterregion = this.lookupmeterregion(vms[vm].location);
-             vms[vm].ratecards = this.lookupmeters(vms[vm].basename, vms[vm].meterregion );
-         }
-         return vms;
+        // send to Queue and then upload to Cosmos
+        let vms : Array<any> = skus.filter((x) => { return x.resourceType == 'virtualMachines'});
+        let cleanVMs : Sku[] = [];
+
+        for (var i in vms) {
+            let basename = vms[i].size.replace("_"," ");
+            let location = vms[i].locations[0];
+            let meterregion = this.lookupmeterregion(location);
+            let vm : Sku = {
+                "basename": basename,
+                "id": vms[i].id,
+                "location": location,
+                "name": vms[i].name,
+                "ratecards": this.lookupmeters(basename, meterregion, meters ),
+                "meterregion": meterregion,
+                "resourceType": vms[i].resourceType,
+                "size": vms[i].size
+
+            }
+            cleanVMs.push(vm);
+        }
+        return cleanVMs;
     }
 
-    private filterStorage(skus: Sku[]) : Sku[] {
+    private filterStorage(skus: Sku[], meters: Meter[]) : Sku[] {
         let disks : Array<any> = skus.filter((x) => { return x.resourceType == 'disks'});
+        let cleanDisks : Sku[] = [];
         for (var i in disks) {
-
-            disks[i].location = disks[i].locations[0];
-            disks[i].meterregion = this.lookupmeterregion(disks[i].location);
-            disks[i].name = disks[i].name + ' ' + disks[i].size;
-            disks[i].ratecards = this.lookupmeters(disks[i].size, disks[i].meterregion );
+            let location = disks[i].locations[0];
+            let meterregion = this.lookupmeterregion(location);
+            let size = disks[i].size;
+            let disk : Sku = {
+                "basename": null,
+                "id": null,
+                "location": location,
+                "name": disks[i].name + ' ' + disks[i].size,
+                "ratecards": this.lookupmeters(size, meterregion, meters),
+                "meterregion": meterregion,
+                "resourceType": disks[i].resourceType,
+                "size": size
+            }
+           cleanDisks.push(disk);
 
         }
-        return disks;
+        return cleanDisks;
             
     }
 
-    private filterSkus(skus: Sku[]) : Sku[] {
+    private filterSkus(skus: Sku[], meters: Meter[]) : Sku[] {
   
-        let vms = this.filterVms(skus);
-        let storage = this.filterStorage(skus);
+        let vms = this.filterVms(skus, meters);
+        let storage = this.filterStorage(skus, meters);
         return vms.concat(storage);
       
          
@@ -201,26 +222,26 @@ export class RateTable {
         }, {});
       };
 
-    private lookupmeters(basename : string, meterregion : string ) : Meter[] {
+    private lookupmeters(basename : string, meterregion : string, meters : Meter[] ) : Meter[] {
         var output = [];
-        var meters: Array<any> ;
+        var metersout: Array<any> ;
         // need to watch out for v2 if it isn't in the basename
         if (!basename.includes('v2')) {
-            meters = this._meters.filter((x) => { return ((x.MeterStatus == 'Active') 
+            metersout = meters.filter((x) => { return ((x.MeterStatus == 'Active') 
             && (x.MeterRegion == meterregion) 
             && (!x.MeterName.includes('Expired'))
             && ((x.MeterName.includes(basename)) && (!x.MeterName.includes('v2')))
             && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage')))});
         } else {
 
-            meters  = this._meters.filter((x) => { return ((x.MeterStatus == 'Active') 
+            metersout  = meters.filter((x) => { return ((x.MeterStatus == 'Active') 
                                                     && (x.MeterRegion == meterregion) 
                                                     && (!x.MeterName.includes('Expired'))
                                                     && (x.MeterName.includes(basename)) 
                                                     && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage')))});
         }
         // for each name+subcategory, take the first one
-        var metergroups = this.groupby(meters);
+        var metergroups = this.groupby(metersout);
         Object.keys(metergroups).forEach(function (key) {
             var thisgroup = metergroups[key];
              // do something with key or value
@@ -237,20 +258,7 @@ export class RateTable {
                 output.push(thisgroup[0]);
             }
           });
-        // for (var i in metergroups) {
-        //     if (metergroups[i].length > 1) {
-        //         // sort by EffectiveDate and take first
-             
-        //         metergroups[i].sort(function(a, b) {
-        //             a = new Date(a.dateModified);
-        //             b = new Date(b.dateModified);
-        //             return a>b ? -1 : a<b ? 1 : 0;
-        //         });
-        //         output.push(metergroups[i][0])
-        //     } else {
-        //         output.push(metergroups[i][0]);
-        //     }
-        // }
+
         return output;
     }
 
@@ -268,7 +276,7 @@ export class RateTable {
     
     private _datacenters: any[];
     private _skus: Sku[];
-    private _meters: Meter[];
+
 }
 
 export interface Sku {
@@ -279,6 +287,7 @@ export interface Sku {
     ratecards: Meter[];
     resourceType: string;
     size: string;
+    meterregion: string;
 }
 
 export interface Meter {
