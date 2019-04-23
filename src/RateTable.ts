@@ -27,7 +27,8 @@ export class RateTable {
 
         // must update meters first
      
-        this._skus = this.filterSkus(skuapiresponse, meterApiResponse);;
+        this._skus = this.filterSkus(skuapiresponse, meterApiResponse);
+        this._meters = meterApiResponse;
     }
 
     public saveData(filepath: string) {
@@ -136,22 +137,26 @@ export class RateTable {
                 }
                 if (ratecards.length == 1) {
                     output =  ratecards[0].MeterRates["0"];
-                } else{
+                } else if (ratecards.length >= 1) {
                     output = 'Indeterminate RateCards - ';
                     for (var i in ratecards) {
                         output += ratecards[i].MeterName + '; ';
                     }
+                } else {
+                    output = 'No rate cards found - are you sure this sku combination is valid?';
                 }
 
             } else if (input.type == 'storage') {
                 ratecards = ratecards.filter((x) => { return x.MeterSubCategory.includes("Managed Disks") });
                 if (ratecards.length == 1) {
                     output =  ratecards[0].MeterRates["0"];
-                } else{
+                } else if (ratecards.length >= 1) {
                     output = 'Indeterminate RateCards - ';
                     for (var i in ratecards) {
                         output += ratecards[i].MeterName + '; ';
                     }
+                } else {
+                    output = 'No rate cards found - are you sure this storage sku combination is valid?';
                 }
             } else {
                 output = 'No type provided';
@@ -184,8 +189,8 @@ export class RateTable {
                 } else {
 
                     let rate = RateTable.pickRate(sku[0], inputarray[i]);
+                    var costval = Number.parseFloat(rate);
                     if (!Number.isNaN(costval)) {
-                        var costval = Number.parseFloat(rate);
                         switch(inputarray[i].type) {
                             case "vm":
                                 outputsku.monthlycost = VMSku.CalculateCost(costval, inputarray[i].quantity)
@@ -276,7 +281,7 @@ export class RateTable {
     
     private _datacenters: any[];
     private _skus: Sku[];
-
+    private _meters: Meter[];
 }
 
 export interface Sku {

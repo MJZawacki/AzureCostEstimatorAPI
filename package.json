@@ -9,7 +9,8 @@
     "start:host": "func start",
     "start": "npm run start:host & npm run watch",
     "test": "mocha -r ts-node/register src/**/**.spec.ts",
-    "longtests": "mocha -r ts-node/register tests/**/*withblobstore.spec.ts"
+    "longtests": "mocha -r ts-node/register tests/**/*withblobstore.spec.ts",
+    "functiontests": "mocha -r ts-node/register tests/**/Functions.spec.ts"
   },
   "description": "",
   "devDependencies": {

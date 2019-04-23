@@ -20,14 +20,14 @@ describe('RateTable Calculations EastUS Linux Low', () => {
   //for (var i = 0; i < 20; i++ ) {
   for (var i in testskus) {
 
-    var type = 'low';
+    var type = 'vm';
     var priority = 'normal';
     var os = 'Linux';
    
     
 
       tests.push({ 
-                    args: [testskus[i].name, testskus[i].location, 730, priority, os, 1, type ],
+                    args: [testskus[i].name, testskus[i].location, 730, testskus[i].priority, testskus[i].os, 1, testskus[i].type ],
                     expected: 0
               })
     }

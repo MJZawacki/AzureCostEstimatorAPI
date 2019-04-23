@@ -10,7 +10,7 @@ import { doesNotReject } from 'assert';
 describe('RateTable w/ BlobStore', () => {
 
   var store, ratecard;
-  
+
   before(async function() {
     // create local cache of ratecard if it doesn't exist
     this.timeout(50000);
@@ -98,6 +98,23 @@ describe('RateTable w/ BlobStore', () => {
     expect(rate).to.equal(0.24);
   });
 
+  it('pickRate should return linux low priority for Standard_B1ls sku', () => {
+
+    let sku : Sku = loadtestsku();
+    let input : CostInput =  {
+      "name": "Standard_B1ls",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "low",
+      "os": "linux",
+      "quantity": 1,
+      "type": "vm"
+    }
+    
+    let rate = RateTable.pickRate(sku, input);
+    expect(rate).to.equal(0.08);
+  });
+  
   it('pickRate should handle F2s vs F2s_v2', async () => {
 
     
