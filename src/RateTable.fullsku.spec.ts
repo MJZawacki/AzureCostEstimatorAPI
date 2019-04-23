@@ -7,6 +7,14 @@ import * as fs from 'fs';
 
 describe('RateTable Calculations EastUS Linux Low', () => {
 
+  before(async function() {
+    // create local cache of ratecard if it doesn't exist
+    let store = new RateTableFileStore();
+    let ratecard = await FunctionUtil.getRateTable(store);
+    
+
+  });
+
   let testskus = JSON.parse(fs.readFileSync('skus_eastus_linux_low.json', 'utf8'));
   var tests = [];
   //for (var i = 0; i < 20; i++ ) {
