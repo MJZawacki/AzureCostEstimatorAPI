@@ -49,7 +49,7 @@ export class AzRestAPI {
 
     }
 
-    static downloadMeters(): Promise<Meter[]> {
+    static downloadMeters(offer: string): Promise<Meter[]> {
 
         
         var options = { method: 'GET',
@@ -75,7 +75,7 @@ export class AzRestAPI {
             qs: 
             { 'api-version': '2016-08-31-preview',
                 //'$filter': 'OfferDurableId%20eq%20%27MS-AZR-0121p%27%20and%20Currency%20eq%20%27USD%27%20and%20Locale%20eq%20%27en-US%27%20and%20RegionInfo%20eq%20%27US%27',
-                '$filter': "OfferDurableId eq 'MS-AZR-0121p' and Currency eq 'USD' and Locale eq 'en-US' and RegionInfo eq 'US'"
+                '$filter': `OfferDurableId eq '${offer}' and Currency eq 'USD' and Locale eq 'en-US' and RegionInfo eq 'US'`
             
             },
             headers: 

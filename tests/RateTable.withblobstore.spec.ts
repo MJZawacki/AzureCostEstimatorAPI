@@ -1,21 +1,24 @@
 import { expect, assert } from 'chai';
 import 'mocha';
 
-import { RateTable, Sku, Meter, CostInput } from './RateTable';
-import { RateTableFileStore } from './RateTableFileStore';
-import { FunctionUtil } from './FunctionUtil';
+import { RateTable, Sku, Meter, CostInput } from '../src/RateTable';
+import { RateTableBlobStore } from '../src/RateTableBlobStore';
+import { FunctionUtil } from '../src/FunctionUtil';
 import * as fs from 'fs';
 import { doesNotReject } from 'assert';
 
-describe('RateTable', () => {
+describe('RateTable w/ BlobStore', () => {
 
+  var store, ratecard;
+  
   before(async function() {
     // create local cache of ratecard if it doesn't exist
     this.timeout(50000);
     //setTimeout(done, 50000);
-    let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
+    store = new RateTableBlobStore();
+    ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
     expect(ratecard).to.not.be.null;
+    
     
   });
 
@@ -98,8 +101,7 @@ describe('RateTable', () => {
   it('pickRate should handle F2s vs F2s_v2', async () => {
 
     
-    let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
+
 
  
     let location = 'eastus';
@@ -111,8 +113,6 @@ describe('RateTable', () => {
 
   it('CalculateCosts should return correct costs for Standard_F2s vm', async () => {
 
-    let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
     
 
     let input : CostInput[] =  [{
@@ -132,8 +132,7 @@ describe('RateTable', () => {
   });
   it('CalculateCosts should return correct costs for Standard_A8_v2 vm', async () => {
 
-    let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
+
     
 
     let input : CostInput[] =  [{
@@ -154,8 +153,7 @@ describe('RateTable', () => {
 
   it('CalculateCosts should return correct costs for P60 sku', async () => {
 
-    let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
+
     
  
     let input : CostInput[] =  [{

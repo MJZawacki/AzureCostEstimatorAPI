@@ -5,13 +5,17 @@ import { StorageSku } from "../src/StorageSku";
 
 export class RateTable {
 
-    constructor(jsonStr?: string) {
-
-        if (jsonStr !== undefined) {
-
-            let jsonObj: any = JSON.parse(jsonStr);
-            for (let prop in jsonObj) {
-                this[prop] = jsonObj[prop];
+    constructor(jsonObj?: any) {
+        if (jsonObj !== undefined) {
+            if (typeof(jsonObj) == 'string') {
+                jsonObj = JSON.parse(jsonObj);
+                for (let prop in jsonObj) {
+                    this[prop] = jsonObj[prop];
+                }
+            } else if (typeof(jsonObj) == 'object') {
+                for (let prop in jsonObj) {
+                    this[prop] = jsonObj[prop];
+                }
             }
         }
     }

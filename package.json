@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "azure_cost_estimator_api",
   "version": "",
   "scripts": {
     "build": "tsc",
@@ -8,8 +8,8 @@
     "prestart": "npm run build && func extensions install",
     "start:host": "func start",
     "start": "npm run start:host & npm run watch",
-    "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "testallskus": "mocha -r ts-node/register src/**/*.fullsku.spec.ts"
+    "test": "mocha -r ts-node/register src/**/**.spec.ts",
+    "longtests": "mocha -r ts-node/register tests/**/*withblobstore.spec.ts"
   },
   "description": "",
   "devDependencies": {
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@azure/cosmos": "^2.1.5",
+    "@azure/storage-blob": "^10.3.0",
     "config": "^3.1.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"

@@ -5,11 +5,21 @@ import { FunctionUtil } from "../src/FunctionUtil";
 import { VMSku } from "../src/VMSku";
 import { StorageSku } from "../src/StorageSku";
 
+var ratecard = {};
+
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
 
     let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable(store);
+    var offercard;
+    if (req.query.offercard || (req.body && req.body.offercard)) {
+        offercard = (req.query.offercard || req.body.offercard)
+    } else {
+        offercard = 'MS-AZR-0121p'; // default PAYG sku
+    }
+    if (ratecard[offercard] === undefined) {
+        ratecard[offercard] = await FunctionUtil.getRateTable(offercard, store);
+    }
 
     var input = req.body;
     var inputarray: CostInput[] = [];

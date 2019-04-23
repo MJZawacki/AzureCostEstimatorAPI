@@ -1,20 +1,22 @@
-import { RateTableFileStore } from './RateTableFileStore'
+
 import { RateTable } from './RateTable'
 import { AzRestAPI } from './AzRestAPI'
+import { IRateTableStore } from './IRateTableStore';
 
 export class FunctionUtil {
 
-    static async getRateTable(store: RateTableFileStore) : Promise<RateTable> {
+
+    static async getRateTable(id: string, store: IRateTableStore) : Promise<RateTable> {
 
         
-        var rates = store.getRateTable()
+        var rates = await store.getRateTable(id)
         if (rates == null) {
             // refresh from web api
             let skus =  await AzRestAPI.downloadSkus();
-            let meters = await AzRestAPI.downloadMeters();
+            let meters = await AzRestAPI.downloadMeters(id);
             rates = new RateTable();
             rates.setData(skus, meters);
-            store.saveRateTable(rates);
+            store.saveRateTable(id, rates);
         }
         return rates;
     }

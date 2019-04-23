@@ -8,24 +8,25 @@ import { AssertionError } from 'assert';
 
 describe('RateTableBlobStore', () => {
 
-  it('saveRateTable should save file to BlobStore', () => {
+  it('saveRateTable should save file to BlobStore', async () => {
 
     let store = new RateTableBlobStore();
 
     let testobj = {
-        "_skus": "[{}]",
-        "_meters": "[{}]",
-        "_datacenters": "[{}]"
+        "_skus": [{}],
+        "_meters": [{}],
+        "_datacenters": [{}]
     };
-
-    assert.doesNotThrow(store.saveRateTable('test', testobj));
+    let url = await store.saveRateTable('test', new RateTable(testobj));
+    expect(url).to.not.be.null;
+    // assert.doesNotThrow(await store.saveRateTable('test', <RateTable>testobj));
   });
  
-  it('getRateTable should return rates lookuptable', () => {
+  it('getRateTable should return rates lookuptable', async () => {
 
     let store = new RateTableBlobStore();
 
-    let rates = RateTableBlobStore.getRateTable('test');
+    let rates = await store.getRateTable('test');
     
     expect(rates).to.be.a('object');
     expect(rates).to.have.property('_skus');

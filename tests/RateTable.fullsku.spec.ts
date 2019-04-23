@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import 'mocha';
-import { RateTable, Sku, Meter, CostInput } from './RateTable';
-import { RateTableFileStore } from './RateTableFileStore';
-import { FunctionUtil } from './FunctionUtil';
+import { RateTable, Sku, Meter, CostInput } from '../src/RateTable';
+import { RateTableFileStore } from '../src/RateTableFileStore';
+import { FunctionUtil } from '../src/FunctionUtil';
 import * as fs from 'fs';
 
 describe('RateTable Calculations EastUS Linux Low', () => {
@@ -10,7 +10,7 @@ describe('RateTable Calculations EastUS Linux Low', () => {
   before(async function() {
     // create local cache of ratecard if it doesn't exist
     let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable(store);
+    let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
     
 
   });
@@ -38,7 +38,7 @@ describe('RateTable Calculations EastUS Linux Low', () => {
         it('CalculateCosts should return correct costs for ' + test.args[0] + ':' + test.args[4] + ':' + test.args[3] + ':' + test.args[6] , async function() {
   
           let store = new RateTableFileStore();
-          let ratecard = await FunctionUtil.getRateTable(store);
+          let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
           
   
               let input : CostInput[] =  [{
@@ -87,7 +87,7 @@ describe('RateTable Calculations EastUS Linux Normal', () => {
         it('CalculateCosts should return correct costs for ' + test.args[0] + ':' + test.args[4] + ':' + test.args[3] + ':' + test.args[6]  , async function() {
   
           let store = new RateTableFileStore();
-          let ratecard = await FunctionUtil.getRateTable(store);
+          let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
           
   
               let input : CostInput[] =  [{
@@ -134,7 +134,7 @@ describe('RateTable Calculations EastUS Windows Low', () => {
         it('CalculateCosts should return correct costs for ' + test.args[0] + ':' + test.args[4] + ':' + test.args[3] + ':' + test.args[6]  , async function() {
   
           let store = new RateTableFileStore();
-          let ratecard = await FunctionUtil.getRateTable(store);
+          let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
           
   
               let input : CostInput[] =  [{
@@ -181,7 +181,7 @@ describe('RateTable Calculations EastUS Windows Normal', () => {
         it('CalculateCosts should return correct costs for ' + test.args[0] + ':' + test.args[4] + ':' + test.args[3] + ':' + test.args[6] , async function() {
   
           let store = new RateTableFileStore();
-          let ratecard = await FunctionUtil.getRateTable(store);
+          let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
           
   
               let input : CostInput[] =  [{
