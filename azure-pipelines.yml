@@ -15,6 +15,10 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
+- script: 
+    npm i -g azure-functions-core-tools --unsafe-perm true
+  displayName: 'func tools install'
+
 - script: |
     npm install
     npm run build:production
@@ -23,3 +27,11 @@ steps:
 - script: |
     npm test
   displayName: 'npm test'
+
+  
+- task: AzureFunctionApp@1
+  inputs:
+    azureSubscription: 'ShareshiftSubscription(8e95e0bb-d7cc-4454-9443-75ca862d34c1)'
+    appType: 'functionApp'
+    appName: 'mzratecardfunc'
+    appSettings: '-endpoint "https://mzconfigurator.documents.azure.com:443/" -primaryKey "JsQdAuxXH5Cfy0EOwi2RxPVoiafZXqOuQVNcTG7QOEtTnr2AdIdb7CrXRnqo0Os4eHnzfekTvpxd63nyQfZWqQ==" -databaseId Configurator -skucontainer Skus -ratecontainer Rates -filecache "D\\HOME\\"'
