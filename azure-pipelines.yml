@@ -32,14 +32,8 @@ steps:
   inputs:
     command: 'custom'
     customCommand: "build"
-  displayName: 'npm build'
-
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    customCommand: "build"
-  displayName: 'npm build'
-
+  displayName: 'npm run build'
+  
 - task: Npm@1
   inputs:
     command: 'custom'
