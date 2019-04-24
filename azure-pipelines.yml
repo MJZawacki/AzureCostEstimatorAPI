@@ -35,6 +35,8 @@ steps:
   displayName: 'npm run build'
   
 - task: Npm@1
+  env:
+    NODE_CONFIG: $(NODE_CONFIG)
   inputs:
     command: 'custom'
     customCommand: "run test"
