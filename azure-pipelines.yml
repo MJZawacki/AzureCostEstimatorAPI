@@ -10,25 +10,42 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- task: NodeTool@0
+# - task: NodeTool@0
+#  inputs:
+#    versionSpec: '10.x'
+#  displayName: 'Install Node.js'
+
+- task: Npm@1
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+    command: 'install'
 
 - script: 
     npm i -g azure-functions-core-tools --unsafe-perm true
   displayName: 'func tools install'
 
-- script: |
-    npm install
-    npm run build:production
-  displayName: 'npm install and build'
+- task: Npm@1
+  inputs:
+    command: 'install'
+  displayName: 'npm install'
 
-- script: |
-    npm test
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: "build"
+  displayName: 'npm build'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: "build"
+  displayName: 'npm build'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: "test"
   displayName: 'npm test'
 
-  
 - task: AzureFunctionApp@1
   inputs:
     azureSubscription: 'ShareshiftSubscription(8e95e0bb-d7cc-4454-9443-75ca862d34c1)'
