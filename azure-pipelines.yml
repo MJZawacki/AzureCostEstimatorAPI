@@ -49,8 +49,8 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'extensions.csproj'
-    arguments: '-o bin --no-incremental --packages D:\\home\\.nuget'
+    projects: '$(Build.SourcesDirectory)/extensions.csproj'
+    arguments: '-o bin --no-incremental'
 
 - task: AzureFunctionApp@1
   inputs:
