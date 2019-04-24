@@ -19,6 +19,11 @@ steps:
   inputs:
     command: 'install'
 
+- task: Npm@1
+  inputs:
+    command: 'run env'
+  displayName: 'npm run env'
+
 #- script: 
 #    npm i -g azure-functions-core-tools --unsafe-perm true
 #  displayName: 'func tools install'
@@ -31,13 +36,13 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    customCommand: "build"
+    customCommand: "run build"
   displayName: 'npm run build'
   
 - task: Npm@1
   inputs:
     command: 'custom'
-    customCommand: "test"
+    customCommand: "run test"
   displayName: 'npm test'
 
 - task: AzureFunctionApp@1
