@@ -19,11 +19,6 @@ steps:
   inputs:
     command: 'install'
 
-- task: Npm@1
-  inputs:
-    command: 'run env'
-  displayName: 'npm run env'
-
 #- script: 
 #    npm i -g azure-functions-core-tools --unsafe-perm true
 #  displayName: 'func tools install'
