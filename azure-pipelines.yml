@@ -63,3 +63,4 @@ steps:
     appType: 'functionApp'
     appName: 'mzratecardfunc'
     package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    deploymentMethod: 'runFromPackage'
