@@ -8,8 +8,8 @@ import { AssertionError } from 'assert';
 
 describe('RateTableBlobStore', () => {
 
-  it('saveRateTable should save file to BlobStore', async () => {
-
+  it('saveRateTable should save file to BlobStore', async function() {
+    this.timeout(20000);
     let store = new RateTableBlobStore();
 
     let testobj = {
@@ -21,8 +21,8 @@ describe('RateTableBlobStore', () => {
     // assert.doesNotThrow(await store.saveRateTable('test', <RateTable>testobj));
   });
  
-  it('getRateTable should return rates lookuptable', async () => {
-
+  it('getRateTable should return rates lookuptable', async function() {
+    this.timeout(20000);
     let store = new RateTableBlobStore();
 
     let rates = await store.getRateTable('test');
