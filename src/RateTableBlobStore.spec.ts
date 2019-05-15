@@ -10,9 +10,9 @@ import * as config from "config";
 
 describe('RateTableBlobStore', () => {
 
-
   it('saveRateTable should save file to BlobStore', async function() {
-    this.timeout(30000);
+    this.timeout(20000);
+
     let store = new RateTableBlobStore();
 
     let testobj = {

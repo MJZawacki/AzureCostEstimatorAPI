@@ -10,28 +10,71 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- task: NodeTool@0
+# - task: NodeTool@0
+#  inputs:
+#    versionSpec: '10.x'
+#  displayName: 'Install Node.js'
+
+- task: Npm@1
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+    command: 'install'
 
-- script: 
-    npm i -g azure-functions-core-tools --unsafe-perm true
-  displayName: 'func tools install'
+#- script: 
+#    npm i -g azure-functions-core-tools --unsafe-perm true
+#  displayName: 'func tools install'
 
-- script: |
-    npm install
-    npm run build:production
-  displayName: 'npm install and build'
+- task: Npm@1
+  inputs:
+    command: 'install'
+  displayName: 'npm install'
 
-- script: |
-    npm test
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: "run build"
+  displayName: 'npm run build'
+  
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '$(Build.SourcesDirectory)/extensions.csproj'
+    arguments: '-o bin --no-incremental'
+
+
+- task: Npm@1
+  env:
+    NODE_CONFIG: $(NODE_CONFIG)
+  inputs:
+    command: 'custom'
+    customCommand: "run test"
   displayName: 'npm test'
 
-  
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '*.js.map
+*.ts
+.git*
+.vscode
+local.settings.json
+test
+tsconfig.json
+resource.json
+skus_*.json
+pretty*.json
+generatetestdata.sh
+eastusvm*.json'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)'
+    includeRootFolder: false
+
+
 - task: AzureFunctionApp@1
   inputs:
     azureSubscription: 'ShareshiftSubscription(8e95e0bb-d7cc-4454-9443-75ca862d34c1)'
     appType: 'functionApp'
     appName: 'mzratecardfunc'
-    appSettings: '-databaseId Configurator -skucontainer Skus -ratecontainer Rates -filecache "D\\HOME\\"'
+    package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    deploymentMethod: 'runFromPackage'
