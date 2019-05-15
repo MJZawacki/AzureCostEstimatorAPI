@@ -1,9 +1,6 @@
 {
-    "endpoint": "<cosmos endpoint>",
-    "primaryKey": "<key>",
-    "databaseId": "Configurator",
-    "ratecontainer": "Rates",
     "filecache": ".\\resource.json",
-    "storageaccount": "<account>",
-    "storageaccountkey": "<key>"
+    "storageaccount": "<account name>",
+    "storageaccountkey": "<key>",
+    "defaultoffer": "AZ-AZR-0003p"
 }

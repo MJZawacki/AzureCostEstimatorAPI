@@ -2,28 +2,30 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { RateTable } from "../src/RateTable";
 import { RateTableBlobStore } from "../src/RateTableBlobStore"
 import { FunctionUtil } from "../src/FunctionUtil"
+import * as config from "config";
 
-var ratecard;
+var ratecard : any = {};
+let defaultoffer = config.get('defaultoffer') as string;
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
 
     let store = new RateTableBlobStore();
-    var offercard;
-    if (req.query.offercard || (req.body && req.body.offercard)) {
-        offercard = (req.query.offercard || req.body.offercard)
+    var offercode;
+    if (req.query.offercode || (req.body && req.body.offercode)) {
+        offercode = (req.query.offercode || req.body.offercode)
     } else {
-        offercard = 'MS-AZR-0121p'; // default PAYG sku
+        offercode = defaultoffer; // default PAYG sku
     }
-    if (ratecard[offercard] === undefined) {
-        ratecard[offercard] = await FunctionUtil.getRateTable(offercard, store);
+    if (ratecard[offercode] === undefined) {
+        ratecard[offercode] = await FunctionUtil.getRateTable(offercode, store);
     }
     
     let skuname = context.bindingData.skuname;
     let location = context.bindingData.location;
     var sku;
     if (location !== undefined) {
-        sku = ratecard.findSku(location, skuname);
+        sku = ratecard[offercode].findSku(location, skuname);
     }
    
     context.res = {

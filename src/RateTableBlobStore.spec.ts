@@ -12,7 +12,7 @@ describe('RateTableBlobStore', () => {
 
 
   it('saveRateTable should save file to BlobStore', async function() {
-    this.timeout(20000);
+    this.timeout(30000);
     let store = new RateTableBlobStore();
 
     let testobj = {

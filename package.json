@@ -9,7 +9,7 @@
     "start:host": "func start",
     "start": "npm run start:host & npm run watch",
     "test": "mocha -r ts-node/register src/**/**.spec.ts",
-    "longtests": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "integration_tests": "mocha -r ts-node/register tests/**/*.spec.ts",
     "report": "mocha -r ts-node/register tests/**/*.spec.js --reporter mocha-junit-reporter",
     "functiontests": "mocha -r ts-node/register tests/**/Functions.spec.ts"
   },
