@@ -2,5 +2,7 @@
     "filecache": ".\\resource.json",
     "storageaccount": "<account name>",
     "storageaccountkey": "<key>",
-    "defaultoffer": "AZ-AZR-0003p"
+    "defaultoffer": "AZ-AZR-0003p",
+    "client_id": "<appid>",
+    "client_secret": "<appsecret>"
 }
