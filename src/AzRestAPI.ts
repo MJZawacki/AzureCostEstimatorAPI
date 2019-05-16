@@ -1,9 +1,12 @@
 import * as request from "request-promise";
 import { Sku, Meter } from "./RateTable";
+import * as config from "config";
+
 export class AzRestAPI {
 
 
-
+    static client_id = config.get('client_id') as string; 
+    static client_secret = config.get('client_secret') as string;
 
     static downloadSkus() : Promise<Sku[]> {
         
@@ -15,9 +18,9 @@ export class AzRestAPI {
             'Content-Type': 'application/x-www-form-urlencoded' },
         form: 
         { grant_type: 'client_credentials',
-            client_id: 'ee682fb4-e490-4553-b28f-a82ee49c0d81',
+            client_id: this.client_id,
             resource: 'https://management.azure.com',
-            client_secret: ')]]d$|=1g}:[tZ@.$0#_-&^[+:.}}+&r]8-' } 
+            client_secret: this.client_secret } 
         };
 
         return request(options).then( (response) => {
@@ -59,9 +62,9 @@ export class AzRestAPI {
             'Content-Type': 'application/x-www-form-urlencoded' },
         form: 
         { grant_type: 'client_credentials',
-            client_id: 'ee682fb4-e490-4553-b28f-a82ee49c0d81',
+            client_id: this.client_id,
             resource: 'https://management.azure.com',
-            client_secret: ')]]d$|=1g}:[tZ@.$0#_-&^[+:.}}+&r]8-' } 
+            client_secret: this.client_secret } 
         };
 
         return request(options).then( (response) => {
