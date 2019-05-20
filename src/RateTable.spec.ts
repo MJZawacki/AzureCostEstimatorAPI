@@ -23,11 +23,15 @@ describe('RateTable', () => {
       expect(filecache).to.not.equal('.');
       expect(filecache).to.not.equal('.\\');
       expect(filecache).to.not.equal('./');
-      var files = fs.readdirSync(filecache); 
-      for (var i in files)
+      var cacheexists = fs.existsSync(filecache);
+      if (cacheexists) 
       {
-        var ratefile = path.join(filecache, files[i]);
-        fs.unlinkSync(ratefile)
+        var files = fs.readdirSync(filecache); 
+        for (var i in files)
+        {
+          var ratefile = path.join(filecache, files[i]);
+          fs.unlinkSync(ratefile)
+        }
       }
      
     }
