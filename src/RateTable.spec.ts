@@ -6,6 +6,10 @@ import { RateTableFileStore } from './RateTableFileStore';
 import { FunctionUtil } from './FunctionUtil';
 import * as fs from 'fs';
 import { doesNotReject } from 'assert';
+import * as config from "config";
+var path = require('path');
+
+let filecache = config.get('filecache') as string; 
 
 describe('RateTable', () => {
 
@@ -13,10 +17,29 @@ describe('RateTable', () => {
   before(async function() {
     // create local cache of ratecard if it doesn't exist
     this.timeout(50000);
-    //setTimeout(done, 50000);
+
+    try { 
+      expect(filecache).to.not.be.null;
+      expect(filecache).to.not.equal('.');
+      expect(filecache).to.not.equal('.\\');
+      expect(filecache).to.not.equal('./');
+      var files = fs.readdirSync(filecache); 
+      for (var i in files)
+      {
+        var ratefile = path.join(filecache, files[i]);
+        fs.unlinkSync(ratefile)
+      }
+     
+    }
+    catch(e) { 
+      throw e; 
+    }
+
     store = new RateTableFileStore();
     ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
     expect(ratecard).to.not.be.null;
+    // Clear Cache
+
     
   });
 
@@ -101,8 +124,8 @@ describe('RateTable', () => {
 
   it('pickRate should return linux low priority for Standard_B1ls sku', async () => {
 
-    let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
+    //let store = new RateTableFileStore();
+    //let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
 
     let input : CostInput[] =  [{
       "name": "Standard_B1ls",
@@ -190,8 +213,8 @@ describe('RateTable', () => {
     }];
     let output = ratecard.CalculateCosts(input);
    
-    expect(output.monthlytotal).to.equal("1419.12");
-    expect(output.annualtotal).to.equal("17029.44");
+    expect(output.monthlytotal).to.equal("2838.24");
+    expect(output.annualtotal).to.equal("34058.88");
     expect(output.costs.length).to.equal(input.length);
   });
 
