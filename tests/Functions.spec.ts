@@ -62,9 +62,10 @@ describe('Azure Functions Integration Tests', function () {
 
 });
 
+
 var postrequest = async function (jsonobj) {
     var options = { method: 'POST',
-    url: 'https://mzratecardfunc.azurewebsites.net/api/costmodel',
+    url: 'http://localhost:7071/api/costmodel',
     headers: 
     { 
         'Content-Type': 'application/json' },
