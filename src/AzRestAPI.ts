@@ -8,7 +8,6 @@ export class AzRestAPI {
     private static client_tenant = config.get('client_tenant') as string;
     private static client_subscription = config.get('client_subscription') as string;
 
-
     static downloadSkus() : Promise<Sku[]> {
         
             

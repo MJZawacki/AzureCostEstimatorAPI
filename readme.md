@@ -12,7 +12,7 @@ Valid Offer's supported by this API are listed at https://azure.microsoft.com/en
 
 ### Build
 
-1. Edit /config/default.json to add storage account info
+1. Edit /config/default.json to add storage account info & client app id/secret. Client app needs to have contributor access to a subscription
 1. npm install
 2. npm start
 

@@ -6,6 +6,10 @@ import { RateTableFileStore } from './RateTableFileStore';
 import { FunctionUtil } from './FunctionUtil';
 import * as fs from 'fs';
 import { doesNotReject } from 'assert';
+import * as config from "config";
+var path = require('path');
+
+
 
 describe('RateTable', () => {
 
@@ -13,10 +17,33 @@ describe('RateTable', () => {
   before(async function() {
     // create local cache of ratecard if it doesn't exist
     this.timeout(50000);
-    //setTimeout(done, 50000);
+    let filecache = config.get('filecache') as string; 
+    try { 
+      expect(filecache).to.not.be.null;
+      expect(filecache).to.not.equal('.');
+      expect(filecache).to.not.equal('.\\');
+      expect(filecache).to.not.equal('./');
+      var cacheexists = fs.existsSync(filecache);
+      if (cacheexists) 
+      {
+        var files = fs.readdirSync(filecache); 
+        for (var i in files)
+        {
+          var ratefile = path.join(filecache, files[i]);
+          fs.unlinkSync(ratefile)
+        }
+      }
+     
+    }
+    catch(e) { 
+      throw e; 
+    }
+
     store = new RateTableFileStore();
     ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
     expect(ratecard).to.not.be.null;
+    // Clear Cache
+
     
   });
 
@@ -101,8 +128,8 @@ describe('RateTable', () => {
 
   it('pickRate should return linux low priority for Standard_B1ls sku', async () => {
 
-    let store = new RateTableFileStore();
-    let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
+    //let store = new RateTableFileStore();
+    //let ratecard = await FunctionUtil.getRateTable('MS-AZR-0121p', store);
 
     let input : CostInput[] =  [{
       "name": "Standard_B1ls",
@@ -137,10 +164,161 @@ describe('RateTable', () => {
    
     expect(sku.length).to.equal(1);
   });
+  
+  it('CalculateCosts should return correct costs for Standard_DS11-1_v2 vm', async () => {
+    let input : CostInput[] =  [{
+      "name": "Standard_DS11-1_v2",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "low",
+      "os": "linux",
+      "quantity": 1,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+    if (output.monthlytotal == "0.00") {
+      expect(output.reason).to.equal("Error");
+    }
+    expect(output.monthlytotal).to.equal("27.01");
+    expect(output.annualtotal).to.equal("324.12");
+    expect(output.costs.length).to.equal(input.length);
+  })
+
+  it('CalculateCosts should return correct costs for Standard_E4-2s_v3 vm', async () => {
+    let input : CostInput[] =  [{
+      "name": "Standard_E4-2s_v3",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "low",
+      "os": "linux",
+      "quantity": 1,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+    if (output.monthlytotal == "0.00") {
+      expect(output.reason).to.equal("Error");
+    }
+    expect(output.monthlytotal).to.equal("36.79");
+    expect(output.annualtotal).to.not.be.null;
+    expect(output.costs.length).to.equal(input.length);
+  })
+
+  it('CalculateCosts should return correct costs for Standard_E64-16s_v3 vm', async () => {
+    let input : CostInput[] =  [{
+      "name": "Standard_E64-16s_v3",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "low",
+      "os": "linux",
+      "quantity": 1,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+    if (output.monthlytotal == "0.00") {
+      expect(output.reason).to.equal("Error");
+    }
+    expect(output.monthlytotal).to.equal("529.98");
+    expect(output.annualtotal).to.not.be.null;
+    expect(output.costs.length).to.equal(input.length);
+  })
+
+  it('CalculateCosts should return correct costs for Standard_DC2s vm', async () => {
+    let input : CostInput[] =  [{
+      "name": "Standard_DC2s",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "low",
+      "os": "linux",
+      "quantity": 1,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+    if (output.monthlytotal == "0.00") {
+      expect(output.reason).to.equal("Error");
+    }
+    expect(output.monthlytotal).to.equal("28.84");
+    expect(output.annualtotal).to.not.be.null;
+    expect(output.costs.length).to.equal(input.length);
+  })
+
+  it('CalculateCosts should return correct costs for Standard_DC2s:linux:normal vm', async () => {
+    let input : CostInput[] =  [{
+      "name": "Standard_DC2s",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "normal",
+      "os": "linux",
+      "quantity": 1,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+    if (output.monthlytotal == "0.00") {
+      expect(output.reason).to.equal("Error");
+    }
+    expect(output.monthlytotal).to.equal("144.54");
+    expect(output.annualtotal).to.not.be.null;
+    expect(output.costs.length).to.equal(input.length);
+  })
+
+  it('CalculateCosts should return correct costs for Standard_DC2s:Windows:low vm', async () => {
+    let input : CostInput[] =  [{
+      "name": "Standard_DC2s",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "low",
+      "os": "Windows",
+      "quantity": 1,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+    if (output.monthlytotal == "0.00") {
+      expect(output.reason).to.equal("Error");
+    }
+    expect(output.monthlytotal).to.equal("71.17");
+    expect(output.annualtotal).to.not.be.null;
+    expect(output.costs.length).to.equal(input.length);
+  })
+
+  it('CalculateCosts should return correct costs for Standard_DC2s:windows:low vm', async () => {
+    let input : CostInput[] =  [{
+      "name": "Standard_DC2s",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "low",
+      "os": "windows",
+      "quantity": 1,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+    if (output.monthlytotal == "0.00") {
+      expect(output.reason).to.equal("Error");
+    }
+    expect(output.monthlytotal).to.equal("71.17");
+    expect(output.annualtotal).to.not.be.null;
+    expect(output.costs.length).to.equal(input.length);
+  })
+
+
+  it('CalculateCosts should return correct costs for Standard_F1 vm', async () => {
+    let input : CostInput[] =  [{
+      "name": "Standard_F1",
+      "location": "eastus",
+      "hours": 730,
+      "priority": "normal",
+      "os": "linux",
+      "quantity": 1,
+      "type": "vm"
+    }];
+    let output = ratecard.CalculateCosts(input);
+    if (output.monthlytotal == "0.00") {
+      expect(output.reason).to.equal("Error");
+    }
+    expect(output.monthlytotal).to.equal("36.28");
+    expect(output.annualtotal).to.equal("435.37");
+    expect(output.costs.length).to.equal(input.length);
+  })
 
   it('CalculateCosts should return correct costs for Standard_F2s vm', async () => {
-
-
 
     let input : CostInput[] =  [{
       "name": "Standard_F2s",
@@ -190,8 +368,8 @@ describe('RateTable', () => {
     }];
     let output = ratecard.CalculateCosts(input);
    
-    expect(output.monthlytotal).to.equal("1419.12");
-    expect(output.annualtotal).to.equal("17029.44");
+    expect(output.monthlytotal).to.equal("2838.24");
+    expect(output.annualtotal).to.equal("34058.88");
     expect(output.costs.length).to.equal(input.length);
   });
 

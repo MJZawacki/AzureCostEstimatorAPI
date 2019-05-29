@@ -103,6 +103,7 @@ export class RateTable {
             skus = this._skus.filter((x) => { return ((x.location == location) )});
 
         } else {
+            // eliminate '-#' from name
             skus = this._skus.filter((x) => { return ((x.location == location) && ((x.name == skuname) || (x.size.includes(skuname))))});
         }
         return skus;
@@ -122,14 +123,16 @@ export class RateTable {
     public static pickRate(sku: Sku, input: CostInput) : string {
         var ratecards = sku.ratecards;
         var output;
+        var isWindows = ((input.os == 'Windows') || (input.os == 'windows'));
+        var isLowPriority = ((input.priority == 'low') || (input.priority == 'Low'));
         if (ratecards.length >= 1) {
             if (input.type == 'vm') {
-                if (input.os == 'Windows') {
+                if (isWindows) {
                     ratecards = ratecards.filter((x) => { return x.MeterSubCategory.includes("Windows") });
                 } else {
                     ratecards = ratecards.filter((x) => { return !x.MeterSubCategory.includes("Windows") });
                 }
-                if (input.priority == 'low') {
+                if (isLowPriority) {
                     // check MeterName for 'Low Priority'
                     ratecards = ratecards.filter((x) => { return x.MeterName.includes("Low Priority") });
                 }  else {
@@ -231,18 +234,25 @@ export class RateTable {
         var output = [];
         var metersout: Array<any> ;
         // need to watch out for v2 if it isn't in the basename
+
+        var dashnum_regexp = new RegExp("-[1-9][1-9]?[a-z]? \\b", "i");
+        //console.log(basename)
+        basename = basename.replace(dashnum_regexp, " ");
+        var basenameregexp = new RegExp(basename + "\\b", "g");
+        //console.log(basename)
         if (!basename.includes('v2')) {
+            // filter out v2
             metersout = meters.filter((x) => { return ((x.MeterStatus == 'Active') 
             && (x.MeterRegion == meterregion) 
             && (!x.MeterName.includes('Expired'))
-            && ((x.MeterName.includes(basename)) && (!x.MeterName.includes('v2')))
+            && ((basenameregexp.test(x.MeterName))  && (!x.MeterName.includes('v2')))
             && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage')))});
         } else {
 
             metersout  = meters.filter((x) => { return ((x.MeterStatus == 'Active') 
                                                     && (x.MeterRegion == meterregion) 
                                                     && (!x.MeterName.includes('Expired'))
-                                                    && (x.MeterName.includes(basename)) 
+                                                    && (basenameregexp.test(x.MeterName)) 
                                                     && ((x.MeterCategory == 'Virtual Machines') || (x.MeterCategory == 'Storage')))});
         }
         // for each name+subcategory, take the first one
