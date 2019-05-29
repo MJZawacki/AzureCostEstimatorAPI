@@ -1,6 +1,10 @@
 {
-    "filecache": ".\\resource.json",
-    "storageaccount": "<account name>",
-    "storageaccountkey": "<key>",
-    "defaultoffer": "AZ-AZR-0003p"
+    "storageaccount": "",
+    "storageaccountkey": "",
+    "filecache": "./resource",
+    "defaultoffer": "MS-AZR-0003p",
+    "client_id": "",
+    "client_secret": "",
+    "client_tenant": "",
+    "client_subscription": ""
 }
