@@ -72,6 +72,8 @@ eastusvm*.json'
 
 
 - task: AzureFunctionApp@1
+  env:
+    AZURE_STORAGE_CONNECTION_STRING: $(AZURE_STORAGE_CONNECTION_STRING)
   inputs:
     azureSubscription: 'ShareshiftSubscription(8e95e0bb-d7cc-4454-9443-75ca862d34c1)'
     appType: 'functionApp'
